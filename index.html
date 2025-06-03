@@ -1,123 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de invitados</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fran & Marga - Lista de invitados</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-image: url('https://cdn.pixabay.com/photo/2018/05/14/13/26/flowers-3318762_1280.jpg');
+      background-image: url('fondo.jpg');
       background-size: cover;
       background-position: center;
-      overflow: hidden;
-    }
-
-    .panel {
-      position: fixed;
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 420px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      padding: 1rem;
-      z-index: 9999;
-      transition: all 0.3s ease;
-    }
-
-    .toggle-btn {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      background: #ccc;
-      border: none;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .invitado {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
-      border-bottom: 1px solid #ddd;
+      justify-content: center;
+      min-height: 100vh;
     }
-
-    .invitado button {
-      margin-left: 4px;
-      border: none;
-      padding: 6px 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
+    .contenedor {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-
-    .confirmado {
-      background-color: #4caf50;
+    .contenedor a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background: #5a7dad;
       color: white;
-    }
-
-    .por-confirmar {
-      background-color: #ffc107;
-      color: black;
-    }
-
-    #listaInvitados {
-      max-height: 55vh;
-      overflow-y: auto;
-      margin-top: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="panel" id="panel">
-    <button class="toggle-btn" onclick="togglePanel()">−</button>
-    <div id="listaInvitados"></div>
+  <div class="contenedor">
+    <h2>Fran & Marga</h2>
+    <p>Accede a la lista de invitados</p>
+    <a href="https://script.google.com/macros/s/AKfycbzr7gusBedGpnqYH-rud1G_x6w4HLOH6SJZ3mIQ4l211qFGHlQvmFUxiq18vgezlJFp/exec" target="_blank">Ver Lista</a>
   </div>
-
   <script>
-    const panel = document.getElementById('panel');
-    function togglePanel() {
-      const lista = document.getElementById('listaInvitados');
-      if (panel.classList.toggle('minimized')) {
-        lista.style.display = 'none';
-      } else {
-        lista.style.display = 'block';
-      }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
     }
-
-    function actualizarEstado(index, estado) {
-      google.script.run.withSuccessHandler(cargarInvitados).actualizarEstado(index, estado);
-    }
-
-    function cargarInvitados() {
-      google.script.run.withSuccessHandler(data => {
-        const contenedor = document.getElementById('listaInvitados');
-        contenedor.innerHTML = '';
-        data.forEach((fila, i) => {
-          const [nombre, estado] = fila;
-          const div = document.createElement('div');
-          div.className = 'invitado';
-          div.innerHTML = `
-            <span>${nombre}</span>
-            <div>
-              <button class="confirmado" onclick="actualizarEstado(${i}, 'Confirmado')">✅</button>
-              <button class="por-confirmar" onclick="actualizarEstado(${i}, 'Por confirmar')">❓</button>
-            </div>
-          `;
-          contenedor.appendChild(div);
-        });
-      }).getData();
-    }
-
-    cargarInvitados();
   </script>
 </body>
 </html>
