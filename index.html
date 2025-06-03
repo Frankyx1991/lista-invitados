@@ -1,46 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icon-192.png">
-    <title>Lista de invitados</title>
-    <style>
-      html, body {
-        margin: 0;
-        height: 100%;
-        font-family: sans-serif;
-        background: url('fondo.jpg') no-repeat center center fixed;
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .content {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 2rem;
-        border-radius: 10px;
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="content">
-      <h1>Lista de invitados</h1>
-      <p>Accede a tu app de gestión desde el botón inferior.</p>
-      <a href="https://script.google.com/macros/s/AKfycbzr7gusBedGpnqYH-rud1G_x6w4HLOH6SJZ3mIQ4l211qFGHlQvmFUxiq18vgezlJFp/exec"
-         style="display:inline-block;margin-top:1rem;padding:0.75rem 1.5rem;background:#5a7dad;color:white;text-decoration:none;border-radius:8px;">
-        Abrir app
-      </a>
-    </div>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
-      }
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-image: url('flowers-3318762_1280.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 300px;
+      max-height: 80vh;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+    .panel.minimized {
+      height: 60px;
+      overflow: hidden;
+    }
+    .toggle-btn {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: #ccc;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .invitado {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .invitado button {
+      margin-left: 4px;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .confirmado {
+      background-color: #4caf50;
+      color: white;
+    }
+    .por-confirmar {
+      background-color: #fbc02d;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel" id="panel">
+    <button class="toggle-btn" onclick="togglePanel()">−</button>
+    <div id="listaInvitados"></div>
+  </div>
+  <script>
+    const panel = document.getElementById('panel');
+    function togglePanel() {
+      panel.classList.toggle('minimized');
+    }
+    function actualizarEstado(index, estado) {
+      google.script.run.withSuccessHandler(cargarInvitados).actualizarEstado(index, estado);
+    }
+    function cargarInvitados() {
+      google.script.run.withSuccessHandler(data => {
+        const contenedor = document.getElementById('listaInvitados');
+        contenedor.innerHTML = '';
+        data.forEach((fila, i) => {
+          const [nombre, estado] = fila;
+          const div = document.createElement('div');
+          div.className = 'invitado';
+          div.innerHTML = `
+            <span>${nombre}</span>
+            <div>
+              <button class="confirmado" onclick="actualizarEstado(${i}, 'Confirmado')">✅</button>
+              <button class="por-confirmar" onclick="actualizarEstado(${i}, 'Por confirmar')">❓</button>
+            </div>
+          `;
+          contenedor.appendChild(div);
+        });
+      }).getData();
+    }
+    cargarInvitados();
+  </script>
+</body>
 </html>
