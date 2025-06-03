@@ -13,28 +13,26 @@
       background-position: center;
       overflow: hidden;
     }
+
     .panel {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 320px;
-      max-height: 80vh;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 420px;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       padding: 1rem;
-      overflow-y: auto;
       z-index: 9999;
       transition: all 0.3s ease;
     }
-    .panel.minimized {
-      height: 60px;
-      overflow: hidden;
-    }
+
     .toggle-btn {
       position: absolute;
       top: 5px;
-      left: 5px;
+      right: 10px;
       background: #ccc;
       border: none;
       border-radius: 50%;
@@ -43,6 +41,7 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     .invitado {
       display: flex;
       justify-content: space-between;
@@ -50,6 +49,7 @@
       padding: 6px 0;
       border-bottom: 1px solid #ddd;
     }
+
     .invitado button {
       margin-left: 4px;
       border: none;
@@ -58,13 +58,21 @@
       cursor: pointer;
       font-weight: bold;
     }
+
     .confirmado {
       background-color: #4caf50;
       color: white;
     }
+
     .por-confirmar {
       background-color: #ffc107;
       color: black;
+    }
+
+    #listaInvitados {
+      max-height: 55vh;
+      overflow-y: auto;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -77,7 +85,12 @@
   <script>
     const panel = document.getElementById('panel');
     function togglePanel() {
-      panel.classList.toggle('minimized');
+      const lista = document.getElementById('listaInvitados');
+      if (panel.classList.toggle('minimized')) {
+        lista.style.display = 'none';
+      } else {
+        lista.style.display = 'block';
+      }
     }
 
     function actualizarEstado(index, estado) {
