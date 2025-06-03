@@ -1,10 +1,10 @@
 {
-  "name": "Fran & Marga - Lista de invitados",
+  "name": "Lista de invitados",
   "short_name": "Invitados",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#f2dede",
+  "theme_color": "#5a7dad",
   "icons": [
     {
       "src": "icon-192.png",
