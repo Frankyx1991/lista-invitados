@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon-192.png">
+    <title>Lista de invitados</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        font-family: sans-serif;
+        background: url('fondo.jpg') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .content {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 10px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Lista de invitados</h1>
+      <p>Accede a tu app de gestión desde el botón inferior.</p>
+      <a href="https://script.google.com/macros/s/AKfycbzr7gusBedGpnqYH-rud1G_x6w4HLOH6SJZ3mIQ4l211qFGHlQvmFUxiq18vgezlJFp/exec"
+         style="display:inline-block;margin-top:1rem;padding:0.75rem 1.5rem;background:#5a7dad;color:white;text-decoration:none;border-radius:8px;">
+        Abrir app
+      </a>
+    </div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+      }
+    </script>
+  </body>
+</html>
