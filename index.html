@@ -3,33 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+  <title>Lista de invitados</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-image: url('flowers-3318762_1280.jpg');
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('https://cdn.pixabay.com/photo/2018/05/14/13/26/flowers-3318762_1280.jpg');
       background-size: cover;
       background-position: center;
-      height: 100vh;
       overflow: hidden;
     }
     .panel {
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 300px;
+      width: 320px;
       max-height: 80vh;
       background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       padding: 1rem;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 999;
+      z-index: 9999;
+      transition: all 0.3s ease;
     }
     .panel.minimized {
       height: 60px;
@@ -57,8 +53,8 @@
     .invitado button {
       margin-left: 4px;
       border: none;
-      padding: 5px 8px;
-      border-radius: 6px;
+      padding: 6px 8px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
     }
@@ -67,7 +63,7 @@
       color: white;
     }
     .por-confirmar {
-      background-color: #fbc02d;
+      background-color: #ffc107;
       color: black;
     }
   </style>
@@ -77,14 +73,17 @@
     <button class="toggle-btn" onclick="togglePanel()">−</button>
     <div id="listaInvitados"></div>
   </div>
+
   <script>
     const panel = document.getElementById('panel');
     function togglePanel() {
       panel.classList.toggle('minimized');
     }
+
     function actualizarEstado(index, estado) {
       google.script.run.withSuccessHandler(cargarInvitados).actualizarEstado(index, estado);
     }
+
     function cargarInvitados() {
       google.script.run.withSuccessHandler(data => {
         const contenedor = document.getElementById('listaInvitados');
@@ -104,6 +103,7 @@
         });
       }).getData();
     }
+
     cargarInvitados();
   </script>
 </body>
