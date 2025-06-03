@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fran & Marga - Lista de invitados</title>
+  <title>Lista de invitados</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png">
   <style>
@@ -18,6 +18,7 @@
       justify-content: center;
       min-height: 100vh;
     }
+
     .contenedor {
       background: rgba(255, 255, 255, 0.95);
       padding: 2rem;
@@ -26,23 +27,37 @@
       text-align: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .contenedor a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 10px 20px;
-      background: #5a7dad;
+
+    .contenedor input, .contenedor button {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .contenedor button {
+      background-color: #5a7dad;
       color: white;
-      border-radius: 8px;
-      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .contenedor a {
+      display: block;
+      margin-top: 1rem;
       font-weight: bold;
+      color: #5a7dad;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
   <div class="contenedor">
-    <h2>Fran & Marga</h2>
-    <p>Accede a la lista de invitados</p>
-    <a href="https://script.google.com/macros/s/AKfycbzr7gusBedGpnqYH-rud1G_x6w4HLOH6SJZ3mIQ4l211qFGHlQvmFUxiq18vgezlJFp/exec" target="_blank">Ver Lista</a>
+    <h2>Lista de invitados</h2>
+    <p>App instalable - Fran & Marga</p>
+    <a href="https://script.google.com/macros/s/AKfycbzr7gusBedGpnqYH-rud1G_x6w4HLOH6SJZ3mIQ4l211qFGHlQvmFUxiq18vgezlJFp/exec" target="_blank">
+      ➕ Abrir formulario de invitados
+    </a>
   </div>
   <script>
     if ('serviceWorker' in navigator) {
